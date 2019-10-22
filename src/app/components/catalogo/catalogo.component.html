@@ -1,24 +1,106 @@
+<h1 style="padding-bottom: 30px; padding-top: 30px; text-align: center">Catalogo de productos</h1>
+
 <div class="row">
     <div class="card-group">
-
         <div class="card col-md-4" style="width: 18rem; padding: 5px" *ngFor="let producto of listaCatalogo">
-            <img [src]="producto.miniatura" class="card-img-top" alt="...">
+            <img [src]="producto.miniatura" (click)="abrirImagenModal(producto)" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">{{producto.descripcion}}</h5>
-                <div class="row">
-                    <div class="col-6">
-                        <span>Disponibilidad</span>
+                <div class="row" style="margin-bottom: 30px">
+                    <div class="col-7">
+                        <span>Disponibilidad</span><br>
                         <span>{{producto.cantidadDisponible}}</span>
                     </div>
-                    <div class="col-6">
+                    <div class="col-5">
                         <span>Precio</span><br>
                         <span>{{producto.precio}}</span>
                     </div>
                 </div>
-                <a href="#" class="btn btn-primary">Pedir</a>
+                <a class="btn btn-primary" style="width: 100%; cursor: pointer;border-radius: 100000px;" (click)="mostrarFormularioPedir(producto)">Pedir</a>
             </div>
         </div>
-
     </div>
+</div>
 
+<div *ngIf="mostrarForm" style="margin-top: 30px; padding: 40px; background: rgb(227, 229, 230)">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 id="titulo">Crear nuevo pedido</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 form-group">
+            <form [formGroup]="formCrearPedido">
+                <div class="row">
+                    <div class="col-md-4 col-xs-12 col-12">
+                        <label id="nombre">Nombre Producto</label> <br>
+                        <input class="form-control" formControlName="nombreProducto" type="text" readonly>
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-12">
+                        <label id="nombre">Cantidad</label> <br>
+                        <input class="form-control" formControlName="cantidad" type="number">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-xs-12 col-12">
+                        <label id="nombre">Nombre</label> <br>
+                        <input class="form-control" formControlName="nombre" type="text">
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-12">
+                        <label id="nombre">Fecha Nacimiento</label> <br>
+                        <input class="form-control" formControlName="fechaNacimiento" type="text">
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-12">
+                        <label id="nombre">Dirección Envio</label> <br>
+                        <input class="form-control" formControlName="direccionEnvio" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-xs-12 col-12">
+                        <label id="nombre">Ciudad</label> <br>
+                        <select class="form-control" name="ciudad" id="ciudad">
+                        <option value="1">Seleccione una ciudad</option>
+                        <option value="Medellín">Medellín</option>
+                        <option value="Bogota">Bogota</option>
+                        <option value="Barranquilla">Barranquilla</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-12">
+                        <label for="agregarDoc">Agregar documento</label><br>
+                        <button class="btn btn-primary" style="border-radius: 100000px;" id="btnAgregarDocumento" (click)="abrirExploradorArchivos()">Agregar documento</button>
+                        <input type="file" id="getFile" style="display:none" accept=".pdf" (change)="obtenerDocumento($event)">
+                    </div>
+                </div>
+            </form>
+            <div class="row" style="margin-top: 30px">
+                <div class="col-md-6">
+                    <button class="btn btn-primary" style="width: 60%;border-radius: 100000px;" (click)="confirmar(formCrearPedido.value)">Confirmar</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-danger" style="width: 60%;border-radius: 100000px;" (click)="cancelar()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="modalImagen" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Imagen producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <img [src]="this.imagenGrande" alt="imagenGrande">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar modal</button>
+            </div>
+        </div>
+    </div>
 </div>

@@ -11,9 +11,12 @@ export class CatalogoService {
 
   urlListaCatalogo : string = environment.API_LISTA_PRODUCTOS;
 
+  misPedidos:any=[];
+
   constructor(private http: HttpClient) { }
 
   listarCatalogo():Observable<any>{
     return this.http.get(this.urlListaCatalogo); 
   }
+
 }

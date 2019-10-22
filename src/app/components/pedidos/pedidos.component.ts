@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PedidosComponent implements OnInit {
 
+  misPedidos:any;
+
   constructor() { }
 
   ngOnInit() {
+    this.misPedidos = JSON.parse(sessionStorage.pedidosNuevos);
   }
+
+  
 
 }
